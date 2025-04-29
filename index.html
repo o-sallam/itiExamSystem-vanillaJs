@@ -5,73 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exam System</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <!-- Navigation Bar -->
-      <nav class="navbar">
-        <div class="nav-content">
-          <h1 class="website-title">Exam System</h1>
-          <div class="search-box">
-            <input type="text" placeholder="Search..." />
-            <i class="fas fa-search"></i>
-          </div>
-          <button class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-          </button>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4c8b629b2c.js" crossorigin="anonymous"></script>
+    </head>
+
+
+
+
+<body>
+
+<main class="container">
+<!-- <nav>
+  <div class="loginBtn">Login</div>
+  
+  <div class="WebsiteNam">Examium</div> -->
+  <div class="formBox">
+    <h1 id="title">Sign Up</h1>
+    <form action="">
+      <div class="inputGroup">
+        <div class="inputField" id="nameField">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" placeholder="Enter Your user name" >
         </div>
-      </nav>
-
-      <!-- Card Section -->
-      <section class="card-section">
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://picsum.photos/300/200?random=1" alt="Card Image" />
-          </div>
-
-          <div class="card-content">
-            <h3>Card Title 1</h3>
-            <p>This is a sample description for card 1.</p>
-          </div>
+        <div class="inputField">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" placeholder="Enter Your Email" >
         </div>
-
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://picsum.photos/300/200?random=2" alt="Card Image" />
-          </div>
-          <div class="card-content">
-            <h3>Card Title 2</h3>
-            <p>This is a sample description for card 2.</p>
-          </div>
+        <div class="inputField">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" placeholder="Enter Your password" >
         </div>
+      </div>
+      <div class="btnField">
+        <input class="btnsign" id="signUpBtn" type="button" value="Sign Up">
+        <input class="btnsign disabled" id="signInBtn"  type="button" value="Sign in">
 
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://picsum.photos/300/200?random=3" alt="Card Image" />
-          </div>
-          <div class="card-content">
-            <h3>Card Title 3</h3>
-            <p>This is a sample description for card 3.</p>
-          </div>
-        </div>
+      </div>
+    </form>
+  </div>
+</nav>
 
-        <div class="card">
-          <div class="card-img-container">
-            <img src="https://picsum.photos/300/200?random=4" alt="Card Image" />
-          </div>
-          <div class="card-content">
-            <h3>Card Title 4</h3>
-            <p>This is a sample description for card 4.</p>
-          </div>
-        </div>
-      </section>
-    </div>
+ 
 
+</main>
+  <footer>
+    <h3 class="teamNames"> Created by ITI Alrish Mearn Stack Team: Omar Sallam , Mohammad Mansour</h3>
+  </footer>
     <script src="main.js"></script>
   </body>
 </html>
