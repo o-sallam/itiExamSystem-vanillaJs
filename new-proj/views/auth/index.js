@@ -1,23 +1,23 @@
 /**
- * Home page component
+ * Auth page component
  * Main entry point that combines template, styles, and logic
  */
 
-import { homeTemplate } from "./auth.template.js";
-import { homeStyles } from "./auth.style.js";
+import { authTemplate } from "./auth.template.js";
+import { authStyles } from "./auth.style.js";
 
 /**
- * Home component that handles authentication (sign up/sign in)
+ * auth component that handles authentication (sign up/sign in)
  */
 export default {
   /**
-   * Renders the home page with authentication form
+   * Renders the auth page with authentication form
    * @returns {string} Combined HTML template and styles
    */
   render: () => {
     return `
-      ${homeTemplate()}
-      ${homeStyles()}
+      ${authTemplate()}
+      ${authStyles()}
     `;
   },
 
