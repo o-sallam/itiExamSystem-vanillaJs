@@ -11,15 +11,23 @@ export const authTemplate = () => {
         <div class="inputGroup">
           <div class="inputField" id="nameField">
             <i class="fa-solid fa-user"></i>
-            <input type="text" id="username" placeholder="Enter Your user name" />
+            <input type="text" id="fullname" placeholder="Enter Your Display Name" />
+            <small class="validation-message" id="fullname-validation"></small>
           </div>
           <div class="inputField">
             <i class="fa-solid fa-envelope"></i>
             <input type="email" id="email" placeholder="Enter Your Email" />
+            <small class="validation-message" id="email-validation"></small>
           </div>
           <div class="inputField">
             <i class="fa-solid fa-lock"></i>
             <input type="password" id="password" placeholder="Enter Your password" />
+            <small class="validation-message" id="password-validation"></small>
+          </div>
+          <div class="inputField"  id="confirmPasswordField">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="confirm-password" placeholder="Confirm Your Password" />
+            <small class="validation-message" id="confirm-password-validation"></small>
           </div>
         </div>
         <div class="btnField">
