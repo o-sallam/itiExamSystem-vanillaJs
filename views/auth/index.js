@@ -9,6 +9,7 @@ import {
   validateFullname,
   validateConfirmPassword,
 } from "../../utils/validationHelpers.js";
+import { registerUser, authenticateUser } from "../../services/userService.js";
 
 export default {
   render: () => {
@@ -90,10 +91,18 @@ export default {
       }
 
       // If we reach here, basic validation passed
-      console.log("Sign In Successful");
-      console.log({ email: emailValue, password: passwordValue });
-      // Authentication logic for sign in
-      // Example: authenticateUser(email, password);
+      // Use the authenticateUser service to handle user authentication
+      const user = authenticateUser(emailValue, passwordValue);
+
+      if (user) {
+        console.log("Sign In Successful");
+        console.log({ user });
+        return true;
+      } else {
+        // Show error if authentication failed
+        showError(email, emailValidation, "Invalid email or password");
+        return false;
+      }
       return true;
     };
 
@@ -145,15 +154,30 @@ export default {
         isPasswordValid &&
         isConfirmValid
       ) {
-        console.log("Sign Up Successful");
-        console.log({
-          fullname: fullnameValue,
-          email: emailValue,
-          password: passwordValue,
-        });
-        // Registration logic for sign up
-        // Example: registerUser(fullname, email, password);
-        return true;
+        // Use the registerUser service to handle user registration
+        const registrationSuccess = registerUser(
+          fullnameValue,
+          emailValue,
+          passwordValue
+        );
+
+        if (registrationSuccess) {
+          console.log("Sign Up Successful");
+          console.log({
+            fullname: fullnameValue,
+            email: emailValue,
+            password: "*****", // Don't log actual password
+          });
+          return true;
+        } else {
+          // Show error if registration failed (e.g., user already exists)
+          showError(
+            email,
+            emailValidation,
+            "User with this email already exists"
+          );
+          return false;
+        }
       }
       return false;
     };
