@@ -5,6 +5,7 @@
 
 import { examsTemplate } from "./exams.template.js";
 import { examsStyles } from "./exams.style.js";
+import Router from "../../router.js";
 
 /**
  * Function to set up event listeners for exam cards
@@ -53,8 +54,20 @@ export default {
 
   /**
    * Sets up event listeners for exam cards after the component is rendered
+   * Also checks if user is authenticated, redirects to login if not
    */
   afterRender: () => {
+    // Check if user is authenticated
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      console.log("User not authenticated, redirecting to login");
+      // Get the app element and create a new router instance to navigate
+      const appElement = document.getElementById("app");
+      const router = new Router(appElement);
+      router.navigateTo("/");
+      return;
+    }
+
     // Set up initial event listeners
     setupEventListeners();
 

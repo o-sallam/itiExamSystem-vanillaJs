@@ -1,5 +1,6 @@
 import { authTemplate } from "./auth.template.js";
 import { authStyles } from "./auth.style.js";
+import Router from "../../router.js";
 import {
   showError,
   showSuccess,
@@ -96,7 +97,12 @@ export default {
 
       if (user) {
         console.log("Sign In Successful");
-        console.log({ user });
+        // Store the authenticated user in localStorage for session management
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        // Navigate to exams page
+        const appElement = document.getElementById("app");
+        const router = new Router(appElement);
+        router.navigateTo("/exams");
         return true;
       } else {
         // Show error if authentication failed
@@ -168,6 +174,10 @@ export default {
             email: emailValue,
             password: "*****", // Don't log actual password
           });
+          handleSignIn();
+          alert("Sign Up Successful");
+          showSuccess(email, emailValidation, "Sign Up Successful");
+          // Redirect or perform other actions after successful registration
           return true;
         } else {
           // Show error if registration failed (e.g., user already exists)
@@ -243,6 +253,6 @@ export default {
     });
 
     // Initialize form state
-    handleSignUp(); // Start in sign up mode by default
+    handleSignIn(); // Start in sign up mode by default
   },
 };
