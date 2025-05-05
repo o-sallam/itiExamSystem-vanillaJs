@@ -1,9 +1,11 @@
 import Auth from "./views/auth/index.js";
 import Exams from "./views/exams/index.js";
+import Questions from "./views/questions/index.js";
 
 const routes = {
   "/": Auth,
   "/exams": Exams,
+  "/questions": Questions,
 };
 
 export default class Router {

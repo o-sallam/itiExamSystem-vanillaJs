@@ -43,11 +43,11 @@ export default {
 
         console.log("Sign In Clicked");
         console.log({ email, password });
+        // Authentication logic for sign in
+        // Example: authenticateUser(email, password);
       }
 
       isSignUp = false;
-      // Authentication logic for sign in
-      // Example: authenticateUser(email, password);
     });
 
     signUpBtn.addEventListener("click", () => {
