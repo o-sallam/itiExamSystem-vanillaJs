@@ -1,8 +1,8 @@
-import Home from "./views/home/index.js";
+import Auth from "./views/auth/index.js";
 import Exams from "./views/exams/index.js";
 
 const routes = {
-  "/": Home,
+  "/": Auth,
   "/exams": Exams,
 };
 

@@ -3,7 +3,7 @@
  * Contains the HTML structure for the home/authentication page
  */
 
-export const homeTemplate = () => {
+export const authTemplate = () => {
   return `
     <div class="formBox">
       <h1 id="title">Sign Up</h1>

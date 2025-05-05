@@ -3,8 +3,8 @@
  * Main entry point that combines template, styles, and logic
  */
 
-import { homeTemplate } from "./home.template.js";
-import { homeStyles } from "./home.style.js";
+import { homeTemplate } from "./auth.template.js";
+import { homeStyles } from "./auth.style.js";
 
 /**
  * Home component that handles authentication (sign up/sign in)
