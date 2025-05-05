@@ -11,7 +11,32 @@ export const authStyles = () => {
         url("assets/images/firstBg.jpg");
       }
 
-      /* Additional styles can be added here if needed */
+      /* Validation styles */
+      .validation-message {
+        color: #ff3860;
+        font-size: 12px;
+        display: block;
+        margin-top: 5px;
+        margin-left: 25px;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease-in-out;
+      }
+
+      .validation-message.show {
+        height: auto;
+        margin-bottom: 5px;
+      }
+
+      .inputField.error input {
+        border-color: #ff3860;
+        border-width: 2px;
+      }
+
+      .inputField.success input {
+        border-color: #23d160;
+        border-width: 2px;
+      }
     </style>
   `;
 };

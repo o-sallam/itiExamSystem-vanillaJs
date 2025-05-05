@@ -1,0 +1,221 @@
+[
+  {
+    "id": 1,
+    "image": "../assets/images/javascript.png",
+    "title": "JavaScript Basics",
+    "createdBy": "John Doe",
+    "duration": 30,
+    "questions": [
+      {
+        "id": 101,
+        "text": "What is JavaScript?",
+        "options": [
+          "A programming language for the web",
+          "A markup language",
+          "A database system",
+          "An operating system"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 102,
+        "text": "Which keyword is used to declare variables in JavaScript?",
+        "options": ["var", "int", "string", "variable"],
+        "correctAnswer": 0
+      },
+      {
+        "id": 103,
+        "text": "What will '2' + 2 evaluate to in JavaScript?",
+        "options": ["4", "'22'", "'4'", "22"],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "image": "../assets/images/html-css.png",
+    "title": "HTML & CSS",
+    "createdBy": "Jane Smith",
+    "duration": 45,
+    "questions": [
+      {
+        "id": 201,
+        "text": "What does HTML stand for?",
+        "options": [
+          "Hyper Text Markup Language",
+          "High Tech Modern Language",
+          "Hyper Transfer Markup Language",
+          "Home Tool Markup Language"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 202,
+        "text": "Which CSS property is used to change the text color?",
+        "options": ["text-color", "font-color", "color", "text-style"],
+        "correctAnswer": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "image": "../assets/images/react.png",
+    "title": "React Fundamentals",
+    "createdBy": "Alex Johnson",
+    "duration": 60,
+    "questions": [
+      {
+        "id": 301,
+        "text": "What is React?",
+        "options": [
+          "A JavaScript library for building user interfaces",
+          "A programming language",
+          "A database system",
+          "A server-side framework"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 302,
+        "text": "What is JSX in React?",
+        "options": [
+          "A JavaScript extension for XML-like code",
+          "A JavaScript library",
+          "A React component",
+          "A database query language"
+        ],
+        "correctAnswer": 0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "image": "../assets/images/nodejs.png",
+    "title": "Node.js Essentials",
+    "createdBy": "Michael Brown",
+    "duration": 50,
+    "questions": [
+      {
+        "id": 401,
+        "text": "What is Node.js?",
+        "options": [
+          "A JavaScript runtime environment",
+          "A programming language",
+          "A database system",
+          "A web browser"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 402,
+        "text": "Which module is used to create a server in Node.js?",
+        "options": ["http", "server", "node", "web"],
+        "correctAnswer": 0
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "image": "../assets/images/angular.png",
+    "title": "Angular Framework",
+    "createdBy": "Sarah Wilson",
+    "duration": 55,
+    "questions": [
+      {
+        "id": 501,
+        "text": "What is Angular?",
+        "options": [
+          "A JavaScript framework for building web applications",
+          "A database system",
+          "A server-side language",
+          "A CSS preprocessor"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 502,
+        "text": "Which decorator is used to define a component in Angular?",
+        "options": ["@Component", "@NgModule", "@Directive", "@Injectable"],
+        "correctAnswer": 0
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "image": "../assets/images/python.png",
+    "title": "Python Programming",
+    "createdBy": "David Miller",
+    "duration": 40,
+    "questions": [
+      {
+        "id": 601,
+        "text": "What is Python?",
+        "options": [
+          "A high-level programming language",
+          "A markup language",
+          "A database system",
+          "An operating system"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 602,
+        "text": "Which of the following is not a Python data type?",
+        "options": ["List", "Dictionary", "Tuple", "Array"],
+        "correctAnswer": 3
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "image": "../assets/images/database.png",
+    "title": "Database Fundamentals",
+    "createdBy": "Emily Clark",
+    "duration": 35,
+    "questions": [
+      {
+        "id": 701,
+        "text": "What is SQL?",
+        "options": [
+          "Structured Query Language",
+          "Simple Query Language",
+          "Standard Question Language",
+          "System Query Language"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 702,
+        "text": "Which of the following is not a type of database?",
+        "options": ["Relational", "NoSQL", "Object-oriented", "Functional"],
+        "correctAnswer": 3
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "image": "../assets/images/devops.png",
+    "title": "DevOps Practices",
+    "createdBy": "Robert Taylor",
+    "duration": 65,
+    "questions": [
+      {
+        "id": 801,
+        "text": "What is DevOps?",
+        "options": [
+          "A set of practices that combines software development and IT operations",
+          "A programming language",
+          "A database system",
+          "A web framework"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "id": 802,
+        "text": "Which of the following is not a DevOps tool?",
+        "options": ["Jenkins", "Docker", "Kubernetes", "Photoshop"],
+        "correctAnswer": 3
+      }
+    ]
+  }
+]

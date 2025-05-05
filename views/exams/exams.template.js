@@ -1,86 +1,78 @@
 /**
  * Exams page template
  * Contains the HTML structure for the exams listing page
+ * Dynamically generates exam cards from JSON data
  */
 
+// Placeholder exam data until the JSON is loaded
+let examData = [];
+
+// Function to load exam data
+function loadExamData() {
+  // Fetch the exam data from the JSON file
+  fetch("../../data/examData.json")
+    .then((response) => response.json())
+    .then((data) => {
+      examData = data;
+      // Refresh the exam cards if the component is already rendered
+      const container = document.querySelector(".cards-grid");
+      if (container) {
+        container.innerHTML = examData
+          .map((exam) => createExamCard(exam))
+          .join("");
+        // Re-attach event listeners by dispatching a custom event
+        document.dispatchEvent(new CustomEvent("examsDataLoaded"));
+      }
+    })
+    .catch((error) => console.error("Error loading exam data:", error));
+}
+
+// Load the exam data when the script is executed
+loadExamData();
+
+/**
+ * Generates HTML for a single exam card
+ * @param {Object} exam - The exam data object
+ * @returns {string} HTML for the exam card
+ */
+const createExamCard = (exam) => {
+  return `
+    <div class="exam-card" data-exam-id="${exam.id}">
+      <div class="exam-card-header">
+        <img src="../assets/images/placeholder.svg" alt="${
+          exam.title
+        }" class="exam-image">
+        <h3>${exam.title}</h3>
+      </div>
+      <p>${
+        exam.questions && exam.questions.length > 0
+          ? exam.questions[0].text
+          : "No questions available"
+      }</p>
+      <div class="card-footer">
+        <span class="time">${exam.duration} mins</span>
+        <span class="author">By: ${exam.createdBy}</span>
+        <button class="start-btn">Start</button>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generates the exams page template with placeholder for dynamically loaded exam cards
+ * @returns {string} Complete HTML for the exams page
+ */
 export const examsTemplate = () => {
+  // Generate initial HTML structure with loading message
   return `
     <div class="exams-container">
       <h1>Available Exams</h1>
       <div class="cards-grid">
-        <!-- Row 1 -->
-        <div class="exam-card">
-          <h3>JavaScript Basics</h3>
-          <p>Test your knowledge of JavaScript fundamentals including variables, data types, and functions.</p>
-          <div class="card-footer">
-            <span class="time">30 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
-        
-        <div class="exam-card">
-          <h3>HTML & CSS</h3>
-          <p>Evaluate your skills in creating and styling web pages with HTML5 and CSS3.</p>
-          <div class="card-footer">
-            <span class="time">45 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
-        
-        <div class="exam-card">
-          <h3>React Fundamentals</h3>
-          <p>Test your understanding of React components, props, state, and hooks.</p>
-          <div class="card-footer">
-            <span class="time">60 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
-        
-        <div class="exam-card">
-          <h3>Node.js Basics</h3>
-          <p>Assess your knowledge of Node.js including modules, npm, and basic server setup.</p>
-          <div class="card-footer">
-            <span class="time">40 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
-        
-        <!-- Row 2 -->
-        <div class="exam-card">
-          <h3>Database Design</h3>
-          <p>Test your skills in designing and normalizing relational databases.</p>
-          <div class="card-footer">
-            <span class="time">50 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
-        
-        <div class="exam-card">
-          <h3>API Development</h3>
-          <p>Evaluate your understanding of RESTful API design principles and implementation.</p>
-          <div class="card-footer">
-            <span class="time">55 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
-        
-        <div class="exam-card">
-          <h3>Web Security</h3>
-          <p>Test your knowledge of common web vulnerabilities and security best practices.</p>
-          <div class="card-footer">
-            <span class="time">45 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
-        
-        <div class="exam-card">
-          <h3>Performance Optimization</h3>
-          <p>Assess your skills in optimizing web applications for better performance.</p>
-          <div class="card-footer">
-            <span class="time">35 mins</span>
-            <button class="start-btn">Start</button>
-          </div>
-        </div>
+        ${
+          examData.length > 0
+            ? examData.map((exam) => createExamCard(exam)).join("")
+            : '<div class="loading">Loading exam data...</div>'
+        }
       </div>
     </div>
   `;
