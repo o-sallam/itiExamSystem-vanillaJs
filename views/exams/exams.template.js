@@ -39,9 +39,7 @@ const createExamCard = (exam) => {
   return `
     <div class="exam-card" data-exam-id="${exam.id}">
       <div class="exam-card-header">
-        <img src="../assets/images/placeholder.svg" alt="${
-          exam.title
-        }" class="exam-image">
+        <img src="${exam.image}" alt="${exam.title}" class="exam-image">
         <h3>${exam.title}</h3>
       </div>
       <p>${

@@ -59,7 +59,7 @@
   },
   {
     "id": 3,
-    "image": "../assets/images/react.png",
+    "image": "../assets/images/react.webp",
     "title": "React Fundamentals",
     "createdBy": "Alex Johnson",
     "duration": 60,
@@ -142,7 +142,7 @@
   },
   {
     "id": 6,
-    "image": "../assets/images/python.png",
+    "image": "../assets/images/python.webp",
     "title": "Python Programming",
     "createdBy": "David Miller",
     "duration": 40,
@@ -168,7 +168,7 @@
   },
   {
     "id": 7,
-    "image": "../assets/images/database.png",
+    "image": "../assets/images/database.webp",
     "title": "Database Fundamentals",
     "createdBy": "Emily Clark",
     "duration": 35,
@@ -194,7 +194,7 @@
   },
   {
     "id": 8,
-    "image": "../assets/images/devops.png",
+    "image": "../assets/images/devops.webp",
     "title": "DevOps Practices",
     "createdBy": "Robert Taylor",
     "duration": 65,
