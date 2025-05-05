@@ -11,26 +11,29 @@ import Router from "../../router.js";
  * Function to set up event listeners for exam cards
  */
 const setupEventListeners = () => {
-  // Add event listeners for exam cards
-  const startButtons = document.querySelectorAll(".start-btn");
+  // Make exam titles clickable to start the exam
+  const examTitles = document.querySelectorAll(".exam-title");
 
-  startButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
+  examTitles.forEach((title) => {
+    title.addEventListener("click", (e) => {
       e.stopPropagation(); // Prevent card click event from firing
-      const card = button.closest(".exam-card");
+      const card = title.closest(".exam-card");
       const examId = card.dataset.examId;
-      const examTitle = card.querySelector("h3").textContent;
+      const examTitle = title.textContent;
       console.log(`Starting exam: ${examTitle} (ID: ${examId})`);
       // Here you can add logic to start the exam using the examId
     });
+    // Add cursor pointer style to indicate clickability
+    title.style.cursor = "pointer";
+    title.style.color = "#4bb24c";
   });
 
-  // Make entire card clickable
+  // Make entire card clickable for showing details
   const examCards = document.querySelectorAll(".exam-card");
   examCards.forEach((card) => {
     card.addEventListener("click", () => {
       const examId = card.dataset.examId;
-      const examTitle = card.querySelector("h3").textContent;
+      const examTitle = card.querySelector(".exam-title").textContent;
       console.log(`Selected exam: ${examTitle} (ID: ${examId})`);
       // Here you can add logic to show exam details using the examId
     });

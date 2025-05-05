@@ -40,7 +40,7 @@ const createExamCard = (exam) => {
     <div class="exam-card" data-exam-id="${exam.id}">
       <div class="exam-card-header">
         <img src="${exam.image}" alt="${exam.title}" class="exam-image">
-        <h3>${exam.title}</h3>
+        <h3 class="exam-title">${exam.title}</h3>
       </div>
       <p>${
         exam.questions && exam.questions.length > 0
@@ -50,7 +50,9 @@ const createExamCard = (exam) => {
       <div class="card-footer">
         <span class="time">${exam.duration} mins</span>
         <span class="author">By: ${exam.createdBy}</span>
-        <button class="start-btn">Start</button>
+        <span class="questions-count">${
+          exam.questions ? exam.questions.length : 0
+        } Questions</span>
       </div>
     </div>
   `;

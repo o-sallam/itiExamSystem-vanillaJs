@@ -14,6 +14,17 @@ export const examsStyles = () => {
         margin-bottom: 10px;
       }
       
+      .exam-title {
+        color: #4bb24c;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      
+      .exam-title:hover {
+        color: #3a8f3b;
+        text-decoration: underline;
+      }
+      
       .exam-image {
         max-width: 100%;
         height: 120px;
@@ -24,9 +35,17 @@ export const examsStyles = () => {
       
       .card-footer {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         margin-top: auto;
+        gap: 8px;
+      }
+      
+      .questions-count {
+        font-size: 0.8rem;
+        color: #4bb24c;
+        font-weight: bold;
       }
       
       .author {

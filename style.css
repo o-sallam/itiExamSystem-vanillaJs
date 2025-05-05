@@ -205,9 +205,11 @@ footer {
 
 .exam-card .card-footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  gap: 8px;
 }
 
 .exam-card .time {
