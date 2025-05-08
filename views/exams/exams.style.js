@@ -6,6 +6,52 @@
 export const examsStyles = () => {
   return `
     <style>
+      /* Exams header styles */
+      .exams-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .user-info {
+        flex: 1;
+      }
+      
+      .user-fullname {
+        font-size: 1rem;
+        color: #333;
+        font-weight: 500;
+      }
+      
+      .exams-header h1 {
+        flex: 2;
+        text-align: center;
+        margin: 0 0 10px 0 ;
+      }
+      
+      .logout-container {
+        flex: 1;
+        text-align: right;
+      }
+      
+      .logout-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s;
+      }
+      
+      .logout-btn:hover {
+        background-color: #d32f2f;
+      }
+      
       /* Exam card styles */
       .exam-card-header {
         display: flex;

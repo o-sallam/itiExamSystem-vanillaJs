@@ -4,7 +4,7 @@
     "image": "../assets/images/javascript.png",
     "title": "JavaScript Basics",
     "createdBy": "John Doe",
-    "duration": 30,
+    "duration": 1,
     "questions": [
       {
         "id": 101,

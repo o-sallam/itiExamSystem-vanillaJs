@@ -22,8 +22,20 @@ export default {
 
   /**
    * Sets up event listeners and handles user interactions after the component is rendered
+   * Also checks if user is already logged in and redirects to exams page if so
    */
   afterRender: () => {
+    // Check if user is already logged in
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser) {
+      console.log("User already logged in, redirecting to exams page");
+      // Navigate to exams page
+      const appElement = document.getElementById("app");
+      const router = new Router(appElement);
+      router.navigateTo("/exams");
+      return;
+    }
+
     const signUpBtn = document.getElementById("signUpBtn");
     const signInBtn = document.getElementById("signInBtn");
     const nameField = document.getElementById("nameField");

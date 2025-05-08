@@ -63,10 +63,22 @@ const createExamCard = (exam) => {
  * @returns {string} Complete HTML for the exams page
  */
 export const examsTemplate = () => {
+  // Get current user from localStorage
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+  const fullname = currentUser.fullname || "User";
+
   // Generate initial HTML structure with loading message
   return `
     <div class="exams-container">
-      <h1>Available Exams</h1>
+      <div class="exams-header">
+        <div class="user-info">
+          <span class="user-fullname">Welcome, ${fullname}</span>
+        </div>
+        <h1>Available Exams</h1>
+        <div class="logout-container">
+          <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
+      </div>
       <div class="cards-grid">
         ${
           examData.length > 0

@@ -36,6 +36,19 @@ export default class Router {
     const path = window.location.pathname;
     const view = routes[path] || routes["/"];
 
+    // Check if user is already logged in and trying to access the login page
+    if (path === "/" && localStorage.getItem("currentUser")) {
+      // Redirect to exams page if user is already logged in
+      history.pushState(null, null, "/exams");
+      this.appElement.innerHTML = routes["/exams"].render();
+
+      // Call afterRender for the exams page
+      if (routes["/exams"].afterRender) {
+        routes["/exams"].afterRender();
+      }
+      return;
+    }
+
     this.appElement.innerHTML = view.render();
 
     // Call afterRender method if it exists
