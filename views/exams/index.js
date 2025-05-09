@@ -23,67 +23,67 @@ const setupEventListeners = () => {
     });
   }
 
-  // Make exam titles clickable to start the exam
+  // Exam titles are no longer clickable
   const examTitles = document.querySelectorAll(".exam-title");
 
+  // Remove pointer cursor and special color from titles
   examTitles.forEach((title) => {
-    title.addEventListener("click", (e) => {
-      e.stopPropagation(); // Prevent card click event from firing
-      const card = title.closest(".exam-card");
-      const examId = card.dataset.examId;
-      const examTitle = title.textContent;
-      console.log(`Starting exam: ${examTitle} (ID: ${examId})`);
-
-      // Find the selected exam from examData
-      fetch("../../data/examData.json")
-        .then((response) => response.json())
-        .then((examData) => {
-          const selectedExam = examData.find(
-            (exam) => exam.id === parseInt(examId)
-          );
-          if (selectedExam) {
-            // Store the selected exam in localStorage
-            localStorage.setItem("currentExam", JSON.stringify(selectedExam));
-
-            // Navigate to the questions page
-            const appElement = document.getElementById("app");
-            const router = new Router(appElement);
-            router.navigateTo("/questions");
-          }
-        })
-        .catch((error) => console.error("Error loading exam data:", error));
-    });
-    // Add cursor pointer style to indicate clickability
-    title.style.cursor = "pointer";
+    title.style.cursor = "default";
+    // Keep the color for visual consistency
     title.style.color = "#4bb24c";
   });
 
-  // Make entire card clickable for starting the exam
+  // Add event listeners to exam cards
   const examCards = document.querySelectorAll(".exam-card");
   examCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const examId = card.dataset.examId;
-      const examTitle = card.querySelector(".exam-title").textContent;
-      console.log(`Selected exam: ${examTitle} (ID: ${examId})`);
+    // Find the start button in this card
+    const startButton = card.querySelector(".start-btn");
 
-      // Find the selected exam from examData
-      fetch("../../data/examData.json")
-        .then((response) => response.json())
-        .then((examData) => {
-          const selectedExam = examData.find(
-            (exam) => exam.id === parseInt(examId)
-          );
-          if (selectedExam) {
-            // Store the selected exam in localStorage
-            localStorage.setItem("currentExam", JSON.stringify(selectedExam));
+    // Add click event to the start button only
+    if (startButton) {
+      startButton.addEventListener("click", (event) => {
+        // Prevent event bubbling
+        event.stopPropagation();
 
-            // Navigate to the questions page
-            const appElement = document.getElementById("app");
-            const router = new Router(appElement);
-            router.navigateTo("/questions");
-          }
-        })
-        .catch((error) => console.error("Error loading exam data:", error));
+        // Check if button is disabled (user already passed)
+        if (startButton.hasAttribute("disabled")) {
+          return; // Do nothing if user already passed
+        }
+
+        const examId = card.dataset.examId;
+        const examTitle = card.querySelector(".exam-title").textContent;
+        console.log(`Starting exam: ${examTitle} (ID: ${examId})`);
+
+        // Find the selected exam from examData
+        fetch("../../data/examData.json")
+          .then((response) => response.json())
+          .then((examData) => {
+            const selectedExam = examData.find(
+              (exam) => exam.id === parseInt(examId)
+            );
+            if (selectedExam) {
+              // Store the selected exam in localStorage
+              localStorage.setItem("currentExam", JSON.stringify(selectedExam));
+
+              // Navigate to the questions page
+              const appElement = document.getElementById("app");
+              const router = new Router(appElement);
+              router.navigateTo("/questions");
+            }
+          })
+          .catch((error) => console.error("Error loading exam data:", error));
+      });
+    }
+
+    // Make the card clickable to view details but not start the exam
+    card.addEventListener("click", (event) => {
+      // Only handle click if it's not on the button
+      if (!event.target.closest(".start-btn")) {
+        const examId = card.dataset.examId;
+        const examTitle = card.querySelector(".exam-title").textContent;
+        console.log(`Viewing details for exam: ${examTitle} (ID: ${examId})`);
+        // You could implement a modal or details view here
+      }
     });
   });
 };

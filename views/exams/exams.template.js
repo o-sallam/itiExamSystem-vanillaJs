@@ -36,11 +36,49 @@ loadExamData();
  * @returns {string} HTML for the exam card
  */
 const createExamCard = (exam) => {
+  // Get current user from localStorage
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+  // Check if user has taken this exam before
+  let userScore = null;
+  let hasPassed = false;
+
+  if (currentUser && currentUser.email) {
+    // Get all users to find the current user's exam results
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = users.find((user) => user.email === currentUser.email);
+
+    if (user && user.examsResults) {
+      // Find this exam in user's results
+      const examResult = user.examsResults.find(
+        (result) => result.examId === exam.id
+      );
+      if (examResult) {
+        userScore = examResult.percentage;
+        hasPassed = userScore >= 60; // Check if user passed with 60% or higher
+      }
+    }
+  }
+
+  // Determine if the start button should be disabled
+  const startButtonDisabled = hasPassed ? "disabled" : "";
+  const buttonText = hasPassed ? "Passed" : "Start Exam";
+  const buttonClass = hasPassed ? "start-btn passed" : "start-btn";
+
   return `
     <div class="exam-card" data-exam-id="${exam.id}">
       <div class="exam-card-header">
         <img src="${exam.image}" alt="${exam.title}" class="exam-image">
         <h3 class="exam-title">${exam.title}</h3>
+        ${
+          userScore !== null
+            ? `<div class="user-score" style="${
+                hasPassed
+                  ? "background-color: #2ecc71;"
+                  : "background-color: #e74c3c;"
+              }">Score: ${userScore}%</div>`
+            : ""
+        }
       </div>
       <p>${
         exam.questions && exam.questions.length > 0
@@ -53,6 +91,7 @@ const createExamCard = (exam) => {
         <span class="questions-count">${
           exam.questions ? exam.questions.length : 0
         } Questions</span>
+        <button class="${buttonClass}" ${startButtonDisabled}>${buttonText}</button>
       </div>
     </div>
   `;

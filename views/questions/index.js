@@ -38,6 +38,36 @@ export default {
       return;
     }
 
+    // Prevent browser back/forward navigation
+    const preventNavigation = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      alert(
+        "Navigation is disabled during the exam. Please use the exam navigation buttons."
+      );
+      return false;
+    };
+
+    // Add event listener for popstate (browser back/forward buttons)
+    window.history.pushState(null, null, window.location.href);
+    window.addEventListener("popstate", function (e) {
+      window.history.pushState(null, null, window.location.href);
+      preventNavigation(e);
+    });
+
+    // Prevent keyboard shortcuts for navigation
+    window.addEventListener("keydown", function (e) {
+      // Alt+Left/Right (browser back/forward)
+      if (
+        (e.altKey && (e.keyCode === 37 || e.keyCode === 39)) ||
+        // Backspace outside of input fields (browser back)
+        (e.keyCode === 8 &&
+          !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName))
+      ) {
+        preventNavigation(e);
+      }
+    });
+
     // Parse exam data
     const examData = JSON.parse(currentExam);
 
@@ -223,6 +253,9 @@ export default {
         ? `Congratulations ${userName}, you are successful!`
         : `Sorry ${userName}, you failed.`;
 
+      // Check if any questions were answered
+      const hasAnsweredQuestions = Object.keys(selectedAnswers).length > 0;
+
       resultsCard.innerHTML = `
         <h2 style="color: #2c3e50; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Exam Results</h2>
         <div class="score-display" style="font-size: 3rem; font-weight: bold; text-align: center; margin: 15px 0; color: ${
@@ -241,7 +274,11 @@ export default {
               : ""
           }
           <button class="back-to-exams-btn" style="background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Back to Exams</button>
-          <button class="show-results-btn" style="background-color: #2ecc71; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Show Details</button>
+          ${
+            hasAnsweredQuestions
+              ? '<button class="show-results-btn" style="background-color: #2ecc71; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Show Details</button>'
+              : ""
+          }
         </div>
       `;
 
@@ -273,41 +310,44 @@ export default {
         percentageDisplay.textContent = `${Math.round(count)}%`;
       }, interval);
 
-      // Add event listener to the show results button
+      // Add event listener to the show results button if it exists
       const showResultsBtn = document.querySelector(".show-results-btn");
-      showResultsBtn.addEventListener("click", () => {
-        // Get current user data to access exam results
-        const currentUserData = JSON.parse(localStorage.getItem("currentUser"));
+      if (showResultsBtn) {
+        showResultsBtn.addEventListener("click", () => {
+          // Get current user data to access exam results
+          const currentUserData = JSON.parse(
+            localStorage.getItem("currentUser")
+          );
 
-        // Get all users to find the current user's exam results
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
-        const userIndex = users.findIndex(
-          (user) => user.email === currentUserData.email
-        );
+          // Get all users to find the current user's exam results
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const userIndex = users.findIndex(
+            (user) => user.email === currentUserData.email
+          );
 
-        if (userIndex !== -1 && users[userIndex].examsResults) {
-          // Get the most recent exam result (the one just finished)
-          const examResult =
-            users[userIndex].examsResults[
-              users[userIndex].examsResults.length - 1
-            ];
+          if (userIndex !== -1 && users[userIndex].examsResults) {
+            // Get the most recent exam result (the one just finished)
+            const examResult =
+              users[userIndex].examsResults[
+                users[userIndex].examsResults.length - 1
+              ];
 
-          // Clear the question box to show detailed results
-          const questionBox = document.querySelector(".question-box");
-          questionBox.innerHTML = "";
+            // Clear the question box to show detailed results
+            const questionBox = document.querySelector(".question-box");
+            questionBox.innerHTML = "";
 
-          // Create detailed results container
-          const detailedResults = document.createElement("div");
-          detailedResults.className = "detailed-results";
+            // Create detailed results container
+            const detailedResults = document.createElement("div");
+            detailedResults.className = "detailed-results";
 
-          // Add header with improved styling
-          detailedResults.innerHTML = `
+            // Add header with improved styling
+            detailedResults.innerHTML = `
             <h2 style="color: #2c3e50; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Detailed Exam Results</h2>
             <div class="exam-info" style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3498db;">
               <p><strong>Exam:</strong> ${examResult.examTitle}</p>
               <p><strong>Score:</strong> ${examResult.score}/${
-            examResult.totalQuestions
-          }</p>
+              examResult.totalQuestions
+            }</p>
               <p><strong>Percentage:</strong> <span style="${
                 examResult.percentage < 60
                   ? "color: #e74c3c; font-weight: bold;"
@@ -323,24 +363,24 @@ export default {
             <button class="back-btn" style="background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; display: block; margin: 0 auto;">Back to Exams</button>
           `;
 
-          // Add each question with user's answer and correct answer with improved styling
-          const questionsReview =
-            detailedResults.querySelector(".questions-review");
-          examResult.questions.forEach((question, index) => {
-            const questionElement = document.createElement("div");
-            questionElement.className = `question-review`;
-            questionElement.style.marginBottom = "15px";
-            questionElement.style.padding = "15px";
-            questionElement.style.borderRadius = "8px";
-            questionElement.style.border = "1px solid #ddd";
-            questionElement.style.backgroundColor = question.isCorrect
-              ? "#e8f5e9"
-              : "#ffebee";
-            questionElement.style.borderLeft = question.isCorrect
-              ? "4px solid #2ecc71"
-              : "4px solid #e74c3c";
+            // Add each question with user's answer and correct answer with improved styling
+            const questionsReview =
+              detailedResults.querySelector(".questions-review");
+            examResult.questions.forEach((question, index) => {
+              const questionElement = document.createElement("div");
+              questionElement.className = `question-review`;
+              questionElement.style.marginBottom = "15px";
+              questionElement.style.padding = "15px";
+              questionElement.style.borderRadius = "8px";
+              questionElement.style.border = "1px solid #ddd";
+              questionElement.style.backgroundColor = question.isCorrect
+                ? "#e8f5e9"
+                : "#ffebee";
+              questionElement.style.borderLeft = question.isCorrect
+                ? "4px solid #2ecc71"
+                : "4px solid #e74c3c";
 
-            questionElement.innerHTML = `
+              questionElement.innerHTML = `
               <p class="question-text" style="font-size: 16px; margin-bottom: 10px;"><strong>Question ${
                 index + 1
               }:</strong> ${question.text}</p>
@@ -364,25 +404,26 @@ export default {
               </p>
             `;
 
-            questionsReview.appendChild(questionElement);
-          });
+              questionsReview.appendChild(questionElement);
+            });
 
-          // Add back button functionality
-          questionBox.appendChild(detailedResults);
-          const backBtn = detailedResults.querySelector(".back-btn");
-          backBtn.addEventListener("click", () => {
-            // Navigate back to exams page
+            // Add back button functionality
+            questionBox.appendChild(detailedResults);
+            const backBtn = detailedResults.querySelector(".back-btn");
+            backBtn.addEventListener("click", () => {
+              // Navigate back to exams page
+              const appElement = document.getElementById("app");
+              const router = new Router(appElement);
+              router.navigateTo("/exams");
+            });
+          } else {
+            // If no results found, navigate to exams page
             const appElement = document.getElementById("app");
             const router = new Router(appElement);
             router.navigateTo("/exams");
-          });
-        } else {
-          // If no results found, navigate to exams page
-          const appElement = document.getElementById("app");
-          const router = new Router(appElement);
-          router.navigateTo("/exams");
-        }
-      });
+          }
+        });
+      }
 
       // Add event listener to the back to exams button
       const backToExamsBtn = document.querySelector(".back-to-exams-btn");
@@ -455,8 +496,18 @@ export default {
         currentUserData.solvedExams = [];
       }
 
-      // Add the detailed exam result to the user's solved exams
-      currentUserData.solvedExams.push(detailedResult);
+      // Check if user has already taken this exam
+      const existingSolvedExamIndex = currentUserData.solvedExams.findIndex(
+        (exam) => exam.examId === detailedResult.examId
+      );
+
+      if (existingSolvedExamIndex !== -1) {
+        // Update existing exam result instead of adding a new one
+        currentUserData.solvedExams[existingSolvedExamIndex] = detailedResult;
+      } else {
+        // Add the detailed exam result to the user's solved exams if it's new
+        currentUserData.solvedExams.push(detailedResult);
+      }
 
       // Update the user data in localStorage
       localStorage.setItem("currentUser", JSON.stringify(currentUserData));
@@ -473,15 +524,26 @@ export default {
           users[userIndex].examsResults = [];
         }
 
-        // Add the exam result to the user's examsResults
-        users[userIndex].examsResults.push(detailedResult);
+        // Check if user has already taken this exam
+        const existingExamIndex = users[userIndex].examsResults.findIndex(
+          (exam) => exam.examId === detailedResult.examId
+        );
+
+        if (existingExamIndex !== -1) {
+          // Update existing exam result instead of adding a new one
+          users[userIndex].examsResults[existingExamIndex] = detailedResult;
+        } else {
+          // Add the exam result to the user's examsResults if it's new
+          users[userIndex].examsResults.push(detailedResult);
+        }
 
         // Update users in localStorage
         localStorage.setItem("users", JSON.stringify(users));
       }
 
-      // // Clear current exam
-      // localStorage.removeItem("currentExam");
+      // Update currentExam with the exam result
+      examData.result = detailedResult;
+      localStorage.setItem("currentExam", JSON.stringify(examData));
 
       // Display results card instead of alert
       displayExamResults(result);

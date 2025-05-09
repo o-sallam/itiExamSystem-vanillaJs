@@ -54,6 +54,7 @@ export const examsStyles = () => {
       
       /* Exam card styles */
       .exam-card-header {
+  position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
